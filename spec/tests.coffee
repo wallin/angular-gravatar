@@ -2,7 +2,6 @@
 
 describe 'Directive: gravatarSrc', ->
   beforeEach module 'ui.gravatar'
-
   element = {}
 
   it 'should set the src attribute with Gravatar URL', inject ($rootScope, $compile) ->

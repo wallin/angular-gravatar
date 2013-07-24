@@ -3,31 +3,32 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', [
   function() {
     var self;
     self = this;
-    this.defaults = {
-      size: 40
-    };
+    this.defaults = {};
     this.secure = false;
     this.$get = [
       'md5', function(md5) {
         return {
           url: function(email, opts) {
-            var k, params, url, urlBase, v;
+            var k, params, pieces, urlBase, v;
             if (opts == null) {
               opts = {};
             }
             opts = angular.extend(self.defaults, opts);
             urlBase = self.secure ? 'https://secure' : 'http://www';
+            pieces = [urlBase, '.gravatar.com/avatar/', md5(email)];
             params = ((function() {
               var _results;
               _results = [];
               for (k in opts) {
                 v = opts[k];
-                _results.push("" + k + "=" + v);
+                _results.push("" + k + "=" + (escape(v)));
               }
               return _results;
             })()).join('&');
-            url = [urlBase, '.gravatar.com/avatar/', md5(email), '?', params].join('');
-            return escape(url);
+            if (params.length > 0) {
+              pieces.push('?' + params);
+            }
+            return pieces.join('');
           }
         };
       }

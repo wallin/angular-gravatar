@@ -6,8 +6,7 @@ angular.module('ui.gravatar', ['md5'])
   self = @
 
   # Options that will be passed along in the URL
-  @defaults =
-    size: 40
+  @defaults = {}
 
   @secure = no
 
@@ -16,9 +15,10 @@ angular.module('ui.gravatar', ['md5'])
     url: (email, opts = {}) ->
       opts = angular.extend(self.defaults, opts)
       urlBase = if self.secure then 'https://secure' else 'http://www'
-      params = ("#{k}=#{v}" for k, v of opts).join('&')
-      url = [urlBase, '.gravatar.com/avatar/', md5(email), '?', params].join('')
-      escape(url)
+      pieces = [urlBase, '.gravatar.com/avatar/', md5(email)]
+      params = ("#{k}=#{escape(v)}" for k, v of opts).join('&')
+      pieces.push('?' + params) if params.length > 0
+      pieces.join('')
   ]
   @
 ])
