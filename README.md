@@ -36,13 +36,16 @@ parameters via the `gravatarServiceProvider`:
 
 ```js
 angular.module('ui.gravatar').config([
-  'gravatarServiceProvider',
-  (gravatarServiceProvider) ->
+  'gravatarServiceProvider', function(gravatarServiceProvider) {
     gravatarServiceProvider.defaults = {
-      size: 100,
-      default: 'mm'  // Mystery man as default for missing avatars
-    }
-])
+      size     : 100,
+      "default": 'mm'  // Mystery man as default for missing avatars
+    };
+
+    // Use https endpoint
+    gravatarServiceProvider.secure = true;
+  }
+]);
 ```
 
 All the available options can be seen over at the [Gravatar docs for image
