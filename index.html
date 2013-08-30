@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Angular-gravatar : Angular.js directive for Gravatar image sources" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Angular-gravatar</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/wallin/angular-gravatar">View on GitHub</a>
+
+          <h1 id="project_title">Angular-gravatar</h1>
+          <h2 id="project_tagline">Angular.js directive for Gravatar image sources</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/wallin/angular-gravatar/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/wallin/angular-gravatar/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="angular-gravatar" class="anchor" href="#angular-gravatar"><span class="octicon octicon-link"></span></a>angular-gravatar</h1>
+
+<p>Angular.JS directive for <a href="http://www.gravatar.com">Gravatar</a>.</p>
+
+<p>Copyright (C) 2013, Sebastian Wallin <a href="mailto:sebastian.wallin@gmail.com">sebastian.wallin@gmail.com</a></p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Include both md5.js and angular-gravatar.js in your application.</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"components/angular-gravatar/src/md5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"components/angular-gravatar/build/angular-gravatar.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<p>Add the module <code>ui.gravatar</code> as a dependency to your app:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'app'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ui.gravatar'</span><span class="p">]);</span>
+</pre></div>
+
+<p>Then use the directive on an image tag and it will set the correct <code>src</code>
+attribute for you.</p>
+
+<div class="highlight"><pre><span class="nt">&lt;img</span> <span class="na">gravatar-src=</span><span class="s">"sebastian.wallin@gmail.com"</span> <span class="na">gravatar-size=</span><span class="s">"100"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>The options that are sent along to Gravatar can be set either
+directly in the directive as seen above with <code>size</code> or configured as default
+parameters via the <code>gravatarServiceProvider</code>:</p>
+
+<div class="highlight"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'ui.gravatar'</span><span class="p">).</span><span class="nx">config</span><span class="p">([</span>
+  <span class="s1">'gravatarServiceProvider'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">gravatarServiceProvider</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">gravatarServiceProvider</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">size</span>     <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="s2">"default"</span><span class="o">:</span> <span class="s1">'mm'</span>  <span class="c1">// Mystery man as default for missing avatars</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Use https endpoint</span>
+    <span class="nx">gravatarServiceProvider</span><span class="p">.</span><span class="nx">secure</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">]);</span>
+</pre></div>
+
+<p>All the available options can be seen over at the <a href="https://sv.gravatar.com/site/implement/images/">Gravatar docs for image
+requests</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Angular-gravatar maintained by <a href="https://github.com/wallin">wallin</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
