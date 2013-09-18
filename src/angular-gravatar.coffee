@@ -43,8 +43,8 @@ angular.module('ui.gravatar', ['md5'])
       # Look for gravatar options
       opts = filterKeys 'gravatar', attrs
       delete opts['src']
-      scope.$watch attrs.gravatarSrc, (email) ->
-        return unless email?
-        element.attr('src', gravatarService.url(email, opts))
+      scope.$watch attrs.gravatarSrc, (src) ->
+        return unless src?
+        element.attr('src', gravatarService.url(src, opts))
 
 ])
