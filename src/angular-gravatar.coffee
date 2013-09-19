@@ -4,10 +4,10 @@ angular.module('ui.gravatar', ['md5'])
 .provider('gravatarService', [->
 
   self = @
+  hashRegex = /^[0-9a-f]{32}$/
 
   # Options that will be passed along in the URL
-  @defaults =
-    ishash: false
+  @defaults = {}
 
   @secure = no
 
@@ -16,8 +16,7 @@ angular.module('ui.gravatar', ['md5'])
     url: (src, opts = {}) ->
       opts = angular.extend(self.defaults, opts)
       urlBase = if self.secure then 'https://secure' else 'http://www'
-      pieces = [urlBase, '.gravatar.com/avatar/', if opts.ishash then src else md5(src)]
-      delete opts.ishash
+      pieces = [urlBase, '.gravatar.com/avatar/', if hashRegex.test(src) then src else md5(src)]
 
       params = ("#{k}=#{escape(v)}" for k, v of opts).join('&')
       pieces.push('?' + params) if params.length > 0
