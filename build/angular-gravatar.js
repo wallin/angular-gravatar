@@ -1,21 +1,22 @@
 'use strict';
 angular.module('ui.gravatar', ['md5']).provider('gravatarService', [
   function() {
-    var self;
+    var hashRegex, self;
     self = this;
+    hashRegex = /^[0-9a-f]{32}$/i;
     this.defaults = {};
     this.secure = false;
     this.$get = [
       'md5', function(md5) {
         return {
-          url: function(email, opts) {
+          url: function(src, opts) {
             var k, params, pieces, urlBase, v;
             if (opts == null) {
               opts = {};
             }
             opts = angular.extend(self.defaults, opts);
             urlBase = self.secure ? 'https://secure' : 'http://www';
-            pieces = [urlBase, '.gravatar.com/avatar/', md5(email)];
+            pieces = [urlBase, '.gravatar.com/avatar/', hashRegex.test(src) ? src : md5(src)];
             params = ((function() {
               var _results;
               _results = [];
@@ -58,11 +59,11 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', [
         var opts;
         opts = filterKeys('gravatar', attrs);
         delete opts['src'];
-        return scope.$watch(attrs.gravatarSrc, function(email) {
-          if (email == null) {
+        return scope.$watch(attrs.gravatarSrc, function(src) {
+          if (src == null) {
             return;
           }
-          return element.attr('src', gravatarService.url(email, opts));
+          return element.attr('src', gravatarService.url(src, opts));
         });
       }
     };

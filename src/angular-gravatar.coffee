@@ -4,7 +4,7 @@ angular.module('ui.gravatar', ['md5'])
 .provider('gravatarService', [->
 
   self = @
-  hashRegex = /^[0-9a-f]{32}$/
+  hashRegex = /^[0-9a-f]{32}$/i
 
   # Options that will be passed along in the URL
   @defaults = {}
