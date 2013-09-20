@@ -42,3 +42,10 @@ describe 'Service: gravatarService', ->
         default: url
 
       expect(gravatarService.url(email, opts)).toMatch(urlEscaped)
+
+    it 'should not re-encode the source if it is already a lowercase MD5 hash', ->
+      expect(gravatarService.url(emailmd5)).toMatch(emailmd5)
+
+    it 'should not re-encode the source if it is already an uppercase MD5 hash', ->
+      src = emailmd5.toUpperCase()
+      expect(gravatarService.url(src)).toMatch(src)
