@@ -27,6 +27,8 @@ attribute for you.
 <img gravatar-src="sebastian.wallin@gmail.com" gravatar-size="100">
 ```
 
+If the source is already an MD5 hash, it will be left untouched (thanks @thewarpaint)
+
 Configuration
 -----
 
