@@ -24,7 +24,7 @@ Then use the directive on an image tag and it will set the correct `src`
 attribute for you.
 
 ```html
-<img gravatar-src="sebastian.wallin@gmail.com" gravatar-size="100">
+<img gravatar-src="'sebastian.wallin@gmail.com'" gravatar-size="100">
 ```
 
 If the source is already an MD5 hash, it will be left untouched (thanks @thewarpaint)
