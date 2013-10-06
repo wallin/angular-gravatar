@@ -11,6 +11,12 @@ describe 'Directive: gravatarSrc', ->
     $rootScope.$apply()
     expect(element.attr('src')).toBeTruthy()
 
+  it 'should set the src attribute from static src', inject ($rootScope, $compile) ->
+    element = angular.element '<img gravatar-src="\'sebastian.wallin@gmail.com\'">'
+    element = $compile(element) $rootScope
+    $rootScope.$apply()
+    expect(element.attr('src')).toBeTruthy()
+
 describe 'Service: gravatarService', ->
   beforeEach module 'ui.gravatar'
 
