@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/wallin/angular-gravatar.png?branch=master)](https://travis-ci.org/wallin/angular-gravatar)
+
 angular-gravatar
 ==============
 
