@@ -1,6 +1,6 @@
 {
 	"name": "angular-gravatar",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Angular.JS directive for gravatar images",
 	"author": "Sebastian Wallin",
 	"license": "MIT",
