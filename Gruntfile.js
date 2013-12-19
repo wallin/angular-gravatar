@@ -39,10 +39,21 @@ module.exports = function (grunt) {
 		    ]
 		  }
 		},
+		copy: {
+			dist: {
+				files: [
+					{
+						src: 'src/md5.js',
+						dest: 'build/md5.js'
+					}
+				]
+			}
+		},
 		uglify: {
 			dist: {
 				files: {
-					'build/angular-gravatar.min.js': 'build/angular-gravatar.js'
+					'build/angular-gravatar.min.js': 'build/angular-gravatar.js',
+					'build/md5.min.js': 'build/md5.js'
 				}
 			}
 		}
@@ -55,6 +66,8 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('build', [
 		'coffee',
+		'karma',
+		'copy',
 		'uglify'
 	]);
 
