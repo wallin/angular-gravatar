@@ -5,7 +5,7 @@
 	"author": "Sebastian Wallin",
 	"license": "MIT",
 	"homepage": "http://github.com/wallin/angular-gravatar",
-	"main": "./build/angular-gravatar.js",
+	"main": ["./build/md5.js", "./build/angular-gravatar.js"],
 	"ignore": [
 	],
 	"dependencies": {
