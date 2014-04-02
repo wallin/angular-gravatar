@@ -55,3 +55,12 @@ describe 'Service: gravatarService', ->
     it 'should not re-encode the source if it is already an uppercase MD5 hash', ->
       src = emailmd5.toUpperCase()
       expect(gravatarService.url(src)).toMatch(src)
+
+    it 'should not overwrite default options', ->
+      opts =
+        size: 100
+
+      url = gravatarService.url(email, opts)
+      url = gravatarService.url(email)
+
+      expect(url).not.toContain('size')
