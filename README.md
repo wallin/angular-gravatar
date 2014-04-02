@@ -1,11 +1,24 @@
 [![Build Status](https://travis-ci.org/wallin/angular-gravatar.png?branch=master)](https://travis-ci.org/wallin/angular-gravatar)
+[![Bower version](https://badge.fury.io/bo/angular-gravatar.png)](http://badge.fury.io/bo/angular-gravatar)
 
 angular-gravatar
 ==============
 
 Angular.JS directive for [Gravatar](http://www.gravatar.com).
 
-Copyright (C) 2013, Sebastian Wallin <sebastian.wallin@gmail.com>
+Copyright (C) 2014, Sebastian Wallin <sebastian.wallin@gmail.com>
+
+Requirements
+-----
+
+* AngularJS (http://angularjs.org)
+
+Install with Bower
+-----
+
+```
+bower install angular-gravatar
+```
 
 Usage
 -----
@@ -55,4 +68,12 @@ angular.module('ui.gravatar').config([
 All the available options can be seen over at the [Gravatar docs for image
 requests](https://sv.gravatar.com/site/implement/images/)
 
+License
+-----
 
+MIT
+
+Contributors
+-----
+* Alexander Makarenko (https://github.com/estliberitas)
+* Eduardo Garcia (https://github.com/thewarpaint)
