@@ -14,7 +14,7 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', [
             if (opts == null) {
               opts = {};
             }
-            opts = angular.extend(self.defaults, opts);
+            opts = angular.extend(angular.copy(self.defaults), opts);
             urlBase = self.secure ? 'https://secure' : 'http://www';
             pieces = [urlBase, '.gravatar.com/avatar/', hashRegex.test(src) ? src : md5(src)];
             params = ((function() {
