@@ -21,10 +21,10 @@
     "src"
   ],
   "dependencies": {
-    "angular": "~1.x"
+    "angular": "~1.2.x"
   },
   "devDependencies": {
-    "angular-mocks": "~1.0.x"
+    "angular-mocks": "~1.2.x"
   },
   "repository": {
     "type": "git",
