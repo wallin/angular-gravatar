@@ -21,12 +21,19 @@ Install with Bower
 bower install angular-gravatar
 ```
 
+Install with NPM
+-----
+
+```
+npm install angular-gravatar
+```
+
 Usage
 -----
 Include both md5.js and angular-gravatar.js in your application.
 
 ```html
-<script src="components/angular-gravatar/src/md5.js"></script>
+<script src="components/angular-gravatar/build/md5.js"></script>
 <script src="components/angular-gravatar/build/angular-gravatar.js"></script>
 ```
 
