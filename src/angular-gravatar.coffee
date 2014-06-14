@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ui.gravatar', ['md5'])
-.provider('gravatarService', [->
+.provider('gravatarService', ->
 
   self = @
   hashRegex = /^[0-9a-f]{32}$/i
@@ -23,7 +23,7 @@ angular.module('ui.gravatar', ['md5'])
       pieces.join('')
   ]
   @
-])
+)
 .directive('gravatarSrc', [
   'gravatarService'
   (gravatarService) ->

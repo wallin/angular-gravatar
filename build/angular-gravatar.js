@@ -1,42 +1,40 @@
 'use strict';
-angular.module('ui.gravatar', ['md5']).provider('gravatarService', [
-  function() {
-    var hashRegex, self;
-    self = this;
-    hashRegex = /^[0-9a-f]{32}$/i;
-    this.defaults = {};
-    this.secure = false;
-    this.$get = [
-      'md5', function(md5) {
-        return {
-          url: function(src, opts) {
-            var k, params, pieces, urlBase, v;
-            if (opts == null) {
-              opts = {};
-            }
-            opts = angular.extend(angular.copy(self.defaults), opts);
-            urlBase = self.secure ? 'https://secure' : 'http://www';
-            pieces = [urlBase, '.gravatar.com/avatar/', hashRegex.test(src) ? src : md5(src)];
-            params = ((function() {
-              var _results;
-              _results = [];
-              for (k in opts) {
-                v = opts[k];
-                _results.push("" + k + "=" + (escape(v)));
-              }
-              return _results;
-            })()).join('&');
-            if (params.length > 0) {
-              pieces.push('?' + params);
-            }
-            return pieces.join('');
+angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
+  var hashRegex, self;
+  self = this;
+  hashRegex = /^[0-9a-f]{32}$/i;
+  this.defaults = {};
+  this.secure = false;
+  this.$get = [
+    'md5', function(md5) {
+      return {
+        url: function(src, opts) {
+          var k, params, pieces, urlBase, v;
+          if (opts == null) {
+            opts = {};
           }
-        };
-      }
-    ];
-    return this;
-  }
-]).directive('gravatarSrc', [
+          opts = angular.extend(angular.copy(self.defaults), opts);
+          urlBase = self.secure ? 'https://secure' : 'http://www';
+          pieces = [urlBase, '.gravatar.com/avatar/', hashRegex.test(src) ? src : md5(src)];
+          params = ((function() {
+            var _results;
+            _results = [];
+            for (k in opts) {
+              v = opts[k];
+              _results.push("" + k + "=" + (escape(v)));
+            }
+            return _results;
+          })()).join('&');
+          if (params.length > 0) {
+            pieces.push('?' + params);
+          }
+          return pieces.join('');
+        }
+      };
+    }
+  ];
+  return this;
+}).directive('gravatarSrc', [
   'gravatarService', function(gravatarService) {
     var filterKeys;
     filterKeys = function(prefix, object) {
