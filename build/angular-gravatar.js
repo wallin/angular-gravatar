@@ -1,14 +1,23 @@
 angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
-  var hashRegex, self;
+  var hashRegex, self, serialize;
   self = this;
   hashRegex = /^[0-9a-f]{32}$/i;
+  serialize = function(object) {
+    var k, params, v;
+    params = [];
+    for (k in object) {
+      v = object[k];
+      params.push("" + k + "=" + (escape(v)));
+    }
+    return params.join('&');
+  };
   this.defaults = {};
   this.secure = false;
   this.$get = [
     'md5', function(md5) {
       return {
         url: function(src, opts) {
-          var k, params, pieces, urlBase, v;
+          var params, pieces, urlBase;
           if (src == null) {
             src = '';
           }
@@ -19,15 +28,7 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
           urlBase = self.secure ? 'https://secure' : 'http://www';
           src = hashRegex.test(src) ? src : md5(src);
           pieces = [urlBase, '.gravatar.com/avatar/', src];
-          params = ((function() {
-            var _results;
-            _results = [];
-            for (k in opts) {
-              v = opts[k];
-              _results.push("" + k + "=" + (escape(v)));
-            }
-            return _results;
-          })()).join('&');
+          params = serialize(opts);
           if (params.length > 0) {
             pieces.push('?' + params);
           }
@@ -45,11 +46,12 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
       retVal = {};
       for (k in object) {
         v = object[k];
-        if (k.indexOf(prefix) === 0) {
-          k = k.substr(prefix.length).toLowerCase();
-          if (k.length > 0) {
-            retVal[k] = v;
-          }
+        if (k.indexOf(prefix) !== 0) {
+          continue;
+        }
+        k = k.substr(prefix.length).toLowerCase();
+        if (k.length > 0) {
+          retVal[k] = v;
         }
       }
       return retVal;
@@ -59,7 +61,7 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
       link: function(scope, element, attrs) {
         var opts;
         opts = filterKeys('gravatar', attrs);
-        delete opts['src'];
+        delete opts.src;
         return scope.$watch(attrs.gravatarSrc, function(src) {
           return element.attr('src', gravatarService.url(src, opts));
         });

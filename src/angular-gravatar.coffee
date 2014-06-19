@@ -4,6 +4,12 @@ angular.module('ui.gravatar', ['md5'])
   self = @
   hashRegex = /^[0-9a-f]{32}$/i
 
+  serialize = (object) ->
+    params = []
+    for k, v of object
+      params.push "#{k}=#{escape(v)}"
+    params.join('&')
+
   # Options that will be passed along in the URL
   @defaults = {}
 
@@ -18,7 +24,7 @@ angular.module('ui.gravatar', ['md5'])
       src = if hashRegex.test(src) then src else md5(src)
       pieces = [urlBase, '.gravatar.com/avatar/', src]
 
-      params = ("#{k}=#{escape(v)}" for k, v of opts).join('&')
+      params = serialize(opts)
       pieces.push('?' + params) if params.length > 0
       pieces.join('')
   ]
@@ -32,16 +38,16 @@ angular.module('ui.gravatar', ['md5'])
     filterKeys = (prefix, object) ->
       retVal = {}
       for k, v of object
-        if k.indexOf(prefix) is 0
-          k = k.substr(prefix.length).toLowerCase()
-          retVal[k] = v if k.length > 0
+        continue unless k.indexOf(prefix) is 0
+        k = k.substr(prefix.length).toLowerCase()
+        retVal[k] = v if k.length > 0
       retVal
 
     restrict: 'A'
     link: (scope, element, attrs) ->
       # Look for gravatar options
       opts = filterKeys 'gravatar', attrs
-      delete opts['src']
+      delete opts.src
       scope.$watch attrs.gravatarSrc, (src) ->
         element.attr('src', gravatarService.url(src, opts))
 
