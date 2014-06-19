@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('ui.gravatar', ['md5'])
 .provider('gravatarService', ->
 
@@ -16,7 +14,9 @@ angular.module('ui.gravatar', ['md5'])
     url: (src = '', opts = {}) ->
       opts = angular.extend(angular.copy(self.defaults), opts)
       urlBase = if self.secure then 'https://secure' else 'http://www'
-      pieces = [urlBase, '.gravatar.com/avatar/', if hashRegex.test(src) then src else md5(src)]
+      # Don't do MD5 if the string is already MD5
+      src = if hashRegex.test(src) then src else md5(src)
+      pieces = [urlBase, '.gravatar.com/avatar/', src]
 
       params = ("#{k}=#{escape(v)}" for k, v of opts).join('&')
       pieces.push('?' + params) if params.length > 0

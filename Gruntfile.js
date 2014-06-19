@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
 	// load all grunt tasks
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-
+  grunt.loadNpmTasks('grunt-coffeelint');
 	grunt.initConfig({
 		karma: {
 			unit: {
@@ -39,6 +39,9 @@ module.exports = function (grunt) {
 		    ]
 		  }
 		},
+		coffeelint: {
+      app: ['src/*.coffee']
+    },
 		copy: {
 			dist: {
 				files: [
@@ -60,13 +63,13 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask('test', [
+		'coffeelint',
 		'coffee',
 		'karma'
 	]);
 
 	grunt.registerTask('build', [
-		'coffee',
-		'karma',
+		'test',
 		'copy',
 		'uglify'
 	]);

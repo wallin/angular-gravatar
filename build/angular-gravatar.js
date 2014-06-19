@@ -1,4 +1,3 @@
-'use strict';
 angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
   var hashRegex, self;
   self = this;
@@ -18,7 +17,8 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
           }
           opts = angular.extend(angular.copy(self.defaults), opts);
           urlBase = self.secure ? 'https://secure' : 'http://www';
-          pieces = [urlBase, '.gravatar.com/avatar/', hashRegex.test(src) ? src : md5(src)];
+          src = hashRegex.test(src) ? src : md5(src);
+          pieces = [urlBase, '.gravatar.com/avatar/', src];
           params = ((function() {
             var _results;
             _results = [];
