@@ -15,7 +15,15 @@ describe 'Directive: gravatarSrc', ->
     element = angular.element '<img gravatar-src="\'sebastian.wallin@gmail.com\'">'
     element = $compile(element) $rootScope
     $rootScope.$apply()
-    expect(element.attr('src')).toBeTruthy()
+    expect(element.attr('src')).toContain('gravatar')
+
+  it 'should generate gravatar image for empty src', inject ($rootScope, $compile) ->
+    $rootScope.email = null
+    element = angular.element '<img gravatar-src="email">'
+    element = $compile(element) $rootScope
+    $rootScope.$apply()
+    expect(element.attr('src')).toContain('gravatar')
+
 
 describe 'Service: gravatarService', ->
   beforeEach module 'ui.gravatar'

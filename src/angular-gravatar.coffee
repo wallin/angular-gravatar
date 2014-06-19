@@ -13,7 +13,7 @@ angular.module('ui.gravatar', ['md5'])
 
   @$get = ['md5', (md5) ->
     # Generate URL from source (email or md5 hash)
-    url: (src, opts = {}) ->
+    url: (src = '', opts = {}) ->
       opts = angular.extend(angular.copy(self.defaults), opts)
       urlBase = if self.secure then 'https://secure' else 'http://www'
       pieces = [urlBase, '.gravatar.com/avatar/', if hashRegex.test(src) then src else md5(src)]
@@ -43,7 +43,6 @@ angular.module('ui.gravatar', ['md5'])
       opts = filterKeys 'gravatar', attrs
       delete opts['src']
       scope.$watch attrs.gravatarSrc, (src) ->
-        return unless src?
         element.attr('src', gravatarService.url(src, opts))
 
 ])

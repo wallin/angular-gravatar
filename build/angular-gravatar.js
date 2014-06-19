@@ -10,6 +10,9 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
       return {
         url: function(src, opts) {
           var k, params, pieces, urlBase, v;
+          if (src == null) {
+            src = '';
+          }
           if (opts == null) {
             opts = {};
           }
@@ -58,9 +61,6 @@ angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
         opts = filterKeys('gravatar', attrs);
         delete opts['src'];
         return scope.$watch(attrs.gravatarSrc, function(src) {
-          if (src == null) {
-            return;
-          }
           return element.attr('src', gravatarService.url(src, opts));
         });
       }
