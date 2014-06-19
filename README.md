@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/wallin/angular-gravatar.png?branch=master)](https://travis-ci.org/wallin/angular-gravatar)
 [![Bower version](https://badge.fury.io/bo/angular-gravatar.png)](http://badge.fury.io/bo/angular-gravatar)
 [![NPM version](https://badge.fury.io/js/angular-gravatar.png)](http://badge.fury.io/js/angular-gravatar)
-
+[![Code Climate](https://codeclimate.com/github/wallin/angular-gravatar.png)](https://codeclimate.com/github/wallin/angular-gravatar)
 angular-gravatar
 ==============
 
