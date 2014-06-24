@@ -1,3 +1,33 @@
+gravatarDirectiveFactory = (bindOnce) ->
+  [
+    'gravatarService'
+    (gravatarService) ->
+      # Get and strip keys with certain prefix only
+      filterKeys = (prefix, object) ->
+        retVal = {}
+        for k, v of object
+          continue unless k.indexOf(prefix) is 0
+          k = k.substr(prefix.length).toLowerCase()
+          retVal[k] = v if k.length > 0
+        retVal
+
+      restrict: 'A'
+      link: (scope, element, attrs) ->
+        directiveName = if bindOnce then 'gravatarSrcOnce' else 'gravatarSrc'
+        item = attrs[directiveName]
+        delete attrs[directiveName]
+        # Look for gravatar options
+        opts = filterKeys 'gravatar', attrs
+        unbind = scope.$watch item, (newVal) ->
+          if bindOnce
+            return unless newVal?
+            unbind()
+
+          element.attr('src', gravatarService.url(newVal, opts))
+          return
+        return
+  ]
+
 angular.module('ui.gravatar', ['md5'])
 .provider('gravatarService', ->
 
@@ -30,25 +60,5 @@ angular.module('ui.gravatar', ['md5'])
   ]
   @
 )
-.directive('gravatarSrc', [
-  'gravatarService'
-  (gravatarService) ->
-
-    # Get and strip keys with certain prefix only
-    filterKeys = (prefix, object) ->
-      retVal = {}
-      for k, v of object
-        continue unless k.indexOf(prefix) is 0
-        k = k.substr(prefix.length).toLowerCase()
-        retVal[k] = v if k.length > 0
-      retVal
-
-    restrict: 'A'
-    link: (scope, element, attrs) ->
-      # Look for gravatar options
-      opts = filterKeys 'gravatar', attrs
-      delete opts.src
-      scope.$watch attrs.gravatarSrc, (src) ->
-        element.attr('src', gravatarService.url(src, opts))
-
-])
+.directive('gravatarSrc', gravatarDirectiveFactory())
+.directive('gravatarSrcOnce', gravatarDirectiveFactory(true))
