@@ -1,6 +1,7 @@
-[![Build Status](https://travis-ci.org/wallin/angular-gravatar.png?branch=master)](https://travis-ci.org/wallin/angular-gravatar)
 [![Bower version](https://badge.fury.io/bo/angular-gravatar.png)](http://badge.fury.io/bo/angular-gravatar)
 [![NPM version](https://badge.fury.io/js/angular-gravatar.png)](http://badge.fury.io/js/angular-gravatar)
+
+[![Build Status](https://travis-ci.org/wallin/angular-gravatar.png?branch=master)](https://travis-ci.org/wallin/angular-gravatar)
 [![Code Climate](https://codeclimate.com/github/wallin/angular-gravatar.png)](https://codeclimate.com/github/wallin/angular-gravatar)
 angular-gravatar
 ==============
@@ -51,6 +52,16 @@ attribute for you.
 ```
 
 If the source is already an MD5 hash, it will be left untouched (thanks @thewarpaint)
+
+#### Binding Once
+
+If you know that the source is not going to change, you can use the `gravatar-src-once` instead:
+
+```js
+<img gravatar-src-once="user.email">
+```
+
+> Note: this directive will watch for a non falsy value and then stop watching.
 
 Configuration
 -----
