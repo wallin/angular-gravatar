@@ -50,6 +50,9 @@ describe 'Directive: gravatarSrc', ->
 
     it 'does not lock on null', inject ($rootScope) ->
       element = createElement('<img gravatar-src-once="email">', $rootScope)
+
+      expect(element.attr('src')).toBeUndefined();
+
       $rootScope.email = email
       $rootScope.$apply()
       expect(element.attr('src')).toContain(emailmd5)
