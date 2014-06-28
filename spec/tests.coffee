@@ -33,6 +33,12 @@ describe 'Directive: gravatarSrc', ->
     element = createElement '<img gravatar-src="email">', $rootScope
     expect(element.attr('src')).toContain('gravatar')
 
+  it 'does not include the directive name in the gravatar url', inject ($rootScope) ->
+    $rootScope.email = email
+    element = createElement('<img gravatar-src-once="email">', $rootScope)
+    expect(element.attr('src')).not.toContain 'src'
+
+
   describe 'when gravatar-src-once is used', ->
     it 'does not change src when email is changed', inject ($rootScope) ->
       $rootScope.email = 'diaper.dynamo@example.com'
@@ -51,6 +57,11 @@ describe 'Directive: gravatarSrc', ->
       $rootScope.email = 'something.else@example.com'
       $rootScope.$apply()
       expect(element.attr('src')).toContain(emailmd5)
+
+    it 'does not include the directive name in the gravatar url', inject ($rootScope) ->
+      $rootScope.email = email
+      element = createElement('<img gravatar-src-once="email">', $rootScope)
+      expect(element.attr('src')).not.toContain 'once'
 
 
 describe 'Service: gravatarService', ->
