@@ -380,4 +380,4 @@ angular.module('md5', []).factory('md5', function() {
   }
 
   return hex_md5;
-})
+});
