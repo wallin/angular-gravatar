@@ -80,7 +80,7 @@ describe 'Service: gravatarService', ->
   describe '#url:', ->
     it 'generates an url without parameters to gravatar avatar endpoint', ->
       url = gravatarService.url(email)
-      expect(url).toBe 'http://www.gravatar.com/avatar/' + emailmd5
+      expect(url).toBe '//www.gravatar.com/avatar/' + emailmd5
 
     it 'generates an url with provided parameters', ->
       opts =
