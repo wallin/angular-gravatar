@@ -70,7 +70,7 @@
               opts = {};
             }
             opts = angular.extend(angular.copy(self.defaults), opts);
-            urlBase = self.secure ? 'https://secure' : 'http://www';
+            urlBase = self.secure ? 'https://secure' : '//www';
             src = hashRegex.test(src) ? src : md5(src);
             pieces = [urlBase, '.gravatar.com/avatar/', src];
             params = serialize(opts);
