@@ -84,6 +84,8 @@ angular.module('ui.gravatar').config([
 ]);
 ```
 
+Note that by default, no explicit protocol is set. This means that the image will use the protocol with which the page is loaded. For example; if the page url is http://www.example.com the image will be loaded over http, but if the page url is https://www.example.com the image will be loaded over https.
+
 All the available options can be seen over at the [Gravatar docs for image
 requests](https://sv.gravatar.com/site/implement/images/)
 
