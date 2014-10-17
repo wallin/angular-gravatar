@@ -98,3 +98,4 @@ Contributors
 -----
 * Alexander Makarenko (https://github.com/estliberitas)
 * Eduardo Garcia (https://github.com/thewarpaint)
+* Thomas Vervest (https://github.com/tvervest)
