@@ -94,7 +94,7 @@ License
 
 MIT
 
-Contributors
+[Contributors](https://github.com/wallin/angular-gravatar/graphs/contributors)
 -----
 * Alexander Makarenko (https://github.com/estliberitas)
 * Eduardo Garcia (https://github.com/thewarpaint)
