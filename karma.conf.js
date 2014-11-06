@@ -16,7 +16,7 @@ module.exports = function (config) {
 			'build/spec/tests.js'
 		],
 		preprocessors: {
-			'angular-gravatar.js': 'coverage'
+			'build/angular-gravatar.js': 'coverage'
 		}
 	});
 };

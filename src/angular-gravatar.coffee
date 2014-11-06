@@ -1,10 +1,44 @@
-'use strict';
+gravatarDirectiveFactory = (bindOnce) ->
+  [
+    'gravatarService'
+    (gravatarService) ->
+      # Get and strip keys with certain prefix only
+      filterKeys = (prefix, object) ->
+        retVal = {}
+        for k, v of object
+          continue unless k.indexOf(prefix) is 0
+          k = k.substr(prefix.length).toLowerCase()
+          retVal[k] = v if k.length > 0
+        retVal
+
+      restrict: 'A'
+      link: (scope, element, attrs) ->
+        directiveName = if bindOnce then 'gravatarSrcOnce' else 'gravatarSrc'
+        item = attrs[directiveName]
+        delete attrs[directiveName]
+        # Look for gravatar options
+        opts = filterKeys 'gravatar', attrs
+        unbind = scope.$watch item, (newVal) ->
+          if bindOnce
+            return unless newVal?
+            unbind()
+
+          element.attr('src', gravatarService.url(newVal, opts))
+          return
+        return
+  ]
 
 angular.module('ui.gravatar', ['md5'])
-.provider('gravatarService', [->
+.provider('gravatarService', ->
 
   self = @
-  hashRegex = /^[0-9a-f]{32}$/
+  hashRegex = /^[0-9a-f]{32}$/i
+
+  serialize = (object) ->
+    params = []
+    for k, v of object
+      params.push "#{k}=#{escape(v)}"
+    params.join('&')
 
   # Options that will be passed along in the URL
   @defaults = {}
@@ -13,37 +47,18 @@ angular.module('ui.gravatar', ['md5'])
 
   @$get = ['md5', (md5) ->
     # Generate URL from source (email or md5 hash)
-    url: (src, opts = {}) ->
-      opts = angular.extend(self.defaults, opts)
-      urlBase = if self.secure then 'https://secure' else 'http://www'
-      pieces = [urlBase, '.gravatar.com/avatar/', if hashRegex.test(src) then src else md5(src)]
+    url: (src = '', opts = {}) ->
+      opts = angular.extend(angular.copy(self.defaults), opts)
+      urlBase = if self.secure then 'https://secure' else '//www'
+      # Don't do MD5 if the string is already MD5
+      src = if hashRegex.test(src) then src else md5(src)
+      pieces = [urlBase, '.gravatar.com/avatar/', src]
 
-      params = ("#{k}=#{escape(v)}" for k, v of opts).join('&')
+      params = serialize(opts)
       pieces.push('?' + params) if params.length > 0
       pieces.join('')
   ]
   @
-])
-.directive('gravatarSrc', [
-  'gravatarService'
-  (gravatarService) ->
-
-    # Get and strip keys with certain prefix only
-    filterKeys = (prefix, object) ->
-      retVal = {}
-      for k, v of object
-        if k.indexOf(prefix) is 0
-          k = k.substr(prefix.length).toLowerCase()
-          retVal[k] = v if k.length > 0
-      retVal
-
-    restrict: 'A'
-    link: (scope, element, attrs) ->
-      # Look for gravatar options
-      opts = filterKeys 'gravatar', attrs
-      delete opts['src']
-      scope.$watch attrs.gravatarSrc, (src) ->
-        return unless src?
-        element.attr('src', gravatarService.url(src, opts))
-
-])
+)
+.directive('gravatarSrc', gravatarDirectiveFactory())
+.directive('gravatarSrcOnce', gravatarDirectiveFactory(true))
