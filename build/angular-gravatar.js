@@ -35,7 +35,7 @@
                 }
                 unbind();
               }
-              element.attr('src', gravatarService.url(newVal, opts));
+              element.attr('src', gravatarService.url(newVal, opts, attrs.protocol));
             });
           }
         };
@@ -61,7 +61,7 @@
     this.$get = [
       'md5', function(md5) {
         return {
-          url: function(src, opts) {
+          url: function(src, opts, protocol) {
             var params, pieces, urlBase;
             if (src == null) {
               src = '';
@@ -69,8 +69,9 @@
             if (opts == null) {
               opts = {};
             }
+            protocol = protocol ? protocol + '://www' : '//www';
             opts = angular.extend(angular.copy(self.defaults), opts);
-            urlBase = self.secure ? 'https://secure' : '//www';
+            urlBase = self.secure ? 'https://secure' : protocol;
             src = hashRegex.test(src) ? src : md5(src);
             pieces = [urlBase, '.gravatar.com/avatar/', src];
             params = serialize(opts);
