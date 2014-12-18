@@ -23,7 +23,7 @@ gravatarDirectiveFactory = (bindOnce) ->
             return unless newVal?
             unbind()
 
-          element.attr('src', gravatarService.url(newVal, opts))
+          element.attr('src', gravatarService.url(newVal, opts, attrs.protocol))
           return
         return
   ]
@@ -47,9 +47,10 @@ angular.module('ui.gravatar', ['md5'])
 
   @$get = ['md5', (md5) ->
     # Generate URL from source (email or md5 hash)
-    url: (src = '', opts = {}) ->
+    url: (src = '', opts = {}, protocol) ->
+      protocol = if protocol then protocol + '://www' else '//www'
       opts = angular.extend(angular.copy(self.defaults), opts)
-      urlBase = if self.secure then 'https://secure' else '//www'
+      urlBase = if self.secure then 'https://secure' else protocol
       # Don't do MD5 if the string is already MD5
       src = if hashRegex.test(src) then src else md5(src)
       pieces = [urlBase, '.gravatar.com/avatar/', src]

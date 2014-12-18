@@ -66,6 +66,11 @@ describe 'Directive: gravatarSrc', ->
       element = createElement('<img gravatar-src-once="email">', $rootScope)
       expect(element.attr('src')).not.toContain 'once'
 
+  describe 'when using specific protocol', ->
+    it 'does not include the directive name in the gravatar url', inject ($rootScope) ->
+      $rootScope.email = email
+      element = createElement('<img data-protocol="http" gravatar-src-once="email">', $rootScope)
+      expect(element.attr('src')).toContain('http://www.')
 
 describe 'Service: gravatarService', ->
   beforeEach module 'ui.gravatar'
@@ -114,3 +119,8 @@ describe 'Service: gravatarService', ->
       url = gravatarService.url(email)
 
       expect(url).not.toContain('size')
+
+    it 'generates an url forcing the specified protocol', ->
+      url = gravatarService.url(email, {}, 'mock-protocol')
+      expect(url).toBe 'mock-protocol://www.gravatar.com/avatar/' + emailmd5
+
