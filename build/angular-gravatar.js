@@ -52,7 +52,7 @@
       params = [];
       for (k in object) {
         v = object[k];
-        params.push("" + k + "=" + (escape(v)));
+        params.push("" + k + "=" + (encodeURIComponent(v)));
       }
       return params.join('&');
     };

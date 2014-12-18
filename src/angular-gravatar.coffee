@@ -37,7 +37,7 @@ angular.module('ui.gravatar', ['md5'])
   serialize = (object) ->
     params = []
     for k, v of object
-      params.push "#{k}=#{escape(v)}"
+      params.push "#{k}=#{encodeURIComponent(v)}"
     params.join('&')
 
   # Options that will be passed along in the URL

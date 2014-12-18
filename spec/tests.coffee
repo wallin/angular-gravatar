@@ -93,7 +93,7 @@ describe 'Service: gravatarService', ->
 
     it 'URL encodes options in final URL', ->
       url = 'http://placekitten.com/100/100'
-      urlEscaped = escape('http://placekitten.com/100/100')
+      urlEscaped = encodeURIComponent('http://placekitten.com/100/100')
       opts =
         default: url
 
