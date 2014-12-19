@@ -58,11 +58,12 @@
     };
     this.defaults = {};
     this.secure = false;
+    this.protocol = null;
     this.$get = [
       'md5', function(md5) {
         return {
           url: function(src, opts) {
-            var params, pieces, urlBase;
+            var params, pieces, protocol, urlBase;
             if (src == null) {
               src = '';
             }
@@ -70,7 +71,8 @@
               opts = {};
             }
             opts = angular.extend(angular.copy(self.defaults), opts);
-            urlBase = self.secure ? 'https://secure' : '//www';
+            protocol = self.protocol ? self.protocol + ':' : '';
+            urlBase = self.secure ? 'https://secure' : protocol + '//www';
             src = hashRegex.test(src) ? src : md5(src);
             pieces = [urlBase, '.gravatar.com/avatar/', src];
             params = serialize(opts);
