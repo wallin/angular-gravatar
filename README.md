@@ -74,8 +74,8 @@ parameters via the `gravatarServiceProvider`:
 angular.module('ui.gravatar').config([
   'gravatarServiceProvider', function(gravatarServiceProvider) {
     gravatarServiceProvider.defaults = {
-      size     : 100,
-      "default": 'mm'  // Mystery man as default for missing avatars
+      size   : 100,
+      default: 'mm'  // Mystery man as default for missing avatars
     };
 
     // Use https endpoint
@@ -94,7 +94,7 @@ License
 
 MIT
 
-Contributors
+[Contributors](https://github.com/wallin/angular-gravatar/graphs/contributors)
 -----
 * Alexander Makarenko (https://github.com/estliberitas)
 * Eduardo Garcia (https://github.com/thewarpaint)
