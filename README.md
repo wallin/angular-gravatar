@@ -80,7 +80,7 @@ angular.module('ui.gravatar').config([
 
     // Use https endpoint
     gravatarServiceProvider.secure = true;
-    
+
     // Force protocol
     gravatarServiceProvider.protocol = 'my-protocol';
   }
@@ -100,8 +100,9 @@ License
 
 MIT
 
-Contributors
+[Contributors](https://github.com/wallin/angular-gravatar/graphs/contributors)
 -----
 * Alexander Makarenko (https://github.com/estliberitas)
 * Eduardo Garcia (https://github.com/thewarpaint)
 * Thomas Vervest (https://github.com/tvervest)
+* Gonzalo Aguirre (https://github.com/gaguirre)
