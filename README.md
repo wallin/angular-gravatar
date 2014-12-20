@@ -80,11 +80,17 @@ angular.module('ui.gravatar').config([
 
     // Use https endpoint
     gravatarServiceProvider.secure = true;
+    
+    // Force protocol
+    gravatarServiceProvider.protocol = 'my-protocol';
   }
 ]);
 ```
 
 Note that by default, no explicit protocol is set. This means that the image will use the protocol with which the page is loaded. For example; if the page url is http://www.example.com the image will be loaded over http, but if the page url is https://www.example.com the image will be loaded over https.
+
+Anyway, you can force the protocol you want (for `https` use `secure = true` instead of `protocol = 'https'` because gravatar url differs for secure/no secure).
+For example, if you are developing a mobile app with Cordova you should use `http`. Otherwise directive will use `file` protocol and fail.
 
 All the available options can be seen over at the [Gravatar docs for image
 requests](https://sv.gravatar.com/site/implement/images/)
