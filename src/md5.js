@@ -6,7 +6,7 @@
  * Distributed under the BSD License
  * See http://pajhome.org.uk/crypt/md5 for more info.
  */
-angular.module('md5', []).factory('md5', function() {
+angular.module('md5', []).factory('md5', [ function() {
 
   /*
    * Configurable variables. You may need to tweak these to be compatible with
@@ -380,4 +380,4 @@ angular.module('md5', []).factory('md5', function() {
   }
 
   return hex_md5;
-});
+}]);
