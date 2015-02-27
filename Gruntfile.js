@@ -41,15 +41,14 @@ module.exports = function (grunt) {
     coffeelint: {
       app: ['src/*.coffee']
     },
-    copy: {
-      dist: {
-        files: [
-          {
-            src: 'src/md5.js',
-            dest: 'build/md5.js'
-          }
-        ]
-      }
+    concat: {
+        dist: {
+            src: [
+                'src/md5.js',
+                'build/angular-gravatar.js'
+            ],
+            dest: 'build/angular-gravatar.js'
+        }
     },
     jshint: {
       options: {
@@ -61,8 +60,7 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          'build/angular-gravatar.min.js': 'build/angular-gravatar.js',
-          'build/md5.min.js': 'build/md5.js'
+          'build/angular-gravatar.min.js': 'build/angular-gravatar.js'
         }
       }
     }
@@ -77,7 +75,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'test',
-    'copy',
+    'concat',
     'uglify'
   ]);
 
