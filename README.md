@@ -31,10 +31,9 @@ npm install angular-gravatar
 
 Usage
 -----
-Include both md5.js and angular-gravatar.js in your application.
+Include angular-gravatar.js in your application.
 
 ```html
-<script src="components/angular-gravatar/build/md5.js"></script>
 <script src="components/angular-gravatar/build/angular-gravatar.js"></script>
 ```
 
