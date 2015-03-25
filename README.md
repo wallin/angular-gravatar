@@ -8,7 +8,7 @@ angular-gravatar
 
 Angular.JS directive for [Gravatar](http://www.gravatar.com).
 
-Copyright (C) 2014, Sebastian Wallin <sebastian.wallin@gmail.com>
+Copyright (C) 2015, Sebastian Wallin <sebastian.wallin@gmail.com>
 
 Requirements
 -----
@@ -105,3 +105,4 @@ MIT
 * Eduardo Garcia (https://github.com/thewarpaint)
 * Thomas Vervest (https://github.com/tvervest)
 * Gonzalo Aguirre (https://github.com/gaguirre)
+* Gabe Hayes (https://github.com/gabehayes)
