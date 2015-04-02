@@ -11,7 +11,7 @@
     "gravatar"
   ],
   "license": "MIT",
-  "main": ["./build/md5.js", "./build/angular-gravatar.js"],
+  "main": ["./build/angular-gravatar.js"],
   "homepage": "http://github.com/wallin/angular-gravatar",
   "ignore": [
     "package.json",
