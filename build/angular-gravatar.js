@@ -443,27 +443,37 @@ angular.module('md5', []).factory('md5', function() {
     this.defaults = {};
     this.secure = false;
     this.protocol = null;
+    this.urlFunc = null;
     this.$get = [
       'md5', function(md5) {
-        return {
-          url: function(src, opts) {
-            var params, pieces, prefix, urlBase;
-            if (src == null) {
-              src = '';
-            }
-            if (opts == null) {
-              opts = {};
-            }
-            opts = angular.extend(angular.copy(self.defaults), opts);
-            prefix = self.protocol ? self.protocol + ':' : '';
-            urlBase = self.secure ? 'https://secure' : prefix + '//www';
-            src = hashRegex.test(src) ? src : md5(src);
+        if (self.urlFunc == null) {
+          self.urlFunc = function(opts) {
+            var params, pieces, prefix, src, urlBase;
+            prefix = opts.protocol ? opts.protocol + ':' : '';
+            urlBase = opts.secure ? 'https://secure' : prefix + '//www';
+            src = hashRegex.test(opts.src) ? opts.src : md5(opts.src);
             pieces = [urlBase, '.gravatar.com/avatar/', src];
-            params = serialize(opts);
+            params = serialize(opts.params);
             if (params.length > 0) {
               pieces.push('?' + params);
             }
             return pieces.join('');
+          };
+        }
+        return {
+          url: function(src, params) {
+            if (src == null) {
+              src = '';
+            }
+            if (params == null) {
+              params = {};
+            }
+            return self.urlFunc({
+              params: angular.extend(angular.copy(self.defaults), params),
+              protocol: self.protocol,
+              secure: self.secure,
+              src: src
+            });
           }
         };
       }

@@ -68,49 +68,59 @@ describe 'Directive: gravatarSrc', ->
 
 
 describe 'Service: gravatarService', ->
-  beforeEach module 'ui.gravatar'
-
   gravatarService = {}
-  beforeEach inject (_gravatarService_) ->
-    gravatarService = _gravatarService_
-
   email = 'sebastian.wallin@gmail.com'
   emailmd5 = '46ab5c60ced85b09c35fd31a510206ef'
 
-  describe '#url:', ->
-    it 'generates an url without parameters to gravatar avatar endpoint', ->
-      url = gravatarService.url(email)
-      expect(url).toBe '//www.gravatar.com/avatar/' + emailmd5
+  describe '#url', ->
+    describe 'with default options', ->
+      beforeEach module 'ui.gravatar'
+      beforeEach inject (_gravatarService_) ->
+        gravatarService = _gravatarService_
 
-    it 'generates an url with provided parameters', ->
-      opts =
-        size: 100
-        default: 'mm'
+      it 'generates an url without parameters to gravatar avatar endpoint', ->
+        url = gravatarService.url(email)
+        expect(url).toBe '//www.gravatar.com/avatar/' + emailmd5
 
-      url = gravatarService.url(email, opts)
-      for k, v of opts
-        expect(url).toContain("#{k}=#{v}")
+      it 'generates an url with provided parameters', ->
+        opts =
+          size: 100
+          default: 'mm'
 
-    it 'URL encodes options in final URL', ->
-      url = 'http://placekitten.com/100/100'
-      urlEscaped = encodeURIComponent('http://placekitten.com/100/100')
-      opts =
-        default: url
+        url = gravatarService.url(email, opts)
+        for k, v of opts
+          expect(url).toContain("#{k}=#{v}")
 
-      expect(gravatarService.url(email, opts)).toMatch(urlEscaped)
+      it 'URL encodes options in final URL', ->
+        url = 'http://placekitten.com/100/100'
+        urlEscaped = encodeURIComponent('http://placekitten.com/100/100')
+        opts =
+          default: url
 
-    it 'does not re-encode the source if it is already a lowercase MD5 hash', ->
-      expect(gravatarService.url(emailmd5)).toMatch(emailmd5)
+        expect(gravatarService.url(email, opts)).toMatch(urlEscaped)
 
-    it 'does not re-encode the source if it is already an uppercase MD5 hash', ->
-      src = emailmd5.toUpperCase()
-      expect(gravatarService.url(src)).toMatch(src)
+      it 'does not re-encode the source if it is already a lowercase MD5 hash', ->
+        expect(gravatarService.url(emailmd5)).toMatch(emailmd5)
 
-    it 'does not overwrite default options', ->
-      opts =
-        size: 100
+      it 'does not re-encode the source if it is already an uppercase MD5 hash', ->
+        src = emailmd5.toUpperCase()
+        expect(gravatarService.url(src)).toMatch(src)
 
-      url = gravatarService.url(email, opts)
-      url = gravatarService.url(email)
+      it 'does not overwrite default options', ->
+        opts =
+          size: 100
 
-      expect(url).not.toContain('size')
+        url = gravatarService.url(email, opts)
+        url = gravatarService.url(email)
+
+        expect(url).not.toContain('size')
+    describe 'with custom URL function', ->
+      beforeEach module('ui.gravatar', (gravatarServiceProvider) ->
+        gravatarServiceProvider.urlFunc = -> 'custom url'
+      )
+      beforeEach inject (_gravatarService_) ->
+        gravatarService = _gravatarService_
+
+      it 'uses specified URL function', ->
+        expect(gravatarService.url()).toBe 'custom url'
+
