@@ -29,7 +29,7 @@ gravatarDirectiveFactory = (bindOnce) ->
   ]
 
 angular.module('ui.gravatar', ['md5'])
-.provider('gravatarService', ->
+.provider('gravatarService', ['md5', (md5) ->
 
   self = @
   hashRegex = /^[0-9a-f]{32}$/i
@@ -47,21 +47,19 @@ angular.module('ui.gravatar', ['md5'])
 
   @protocol = null
 
-  @urlFunc = null
+  # Set default URL function if not already configured
+  @urlFunc = (opts) ->
+    prefix = if opts.protocol then (opts.protocol + ':') else ''
+    urlBase = if opts.secure then 'https://secure' else (prefix + '//www')
+    # Don't do MD5 if the string is already MD5
+    src = if hashRegex.test(opts.src) then opts.src else md5(opts.src)
+    pieces = [urlBase, '.gravatar.com/avatar/', src]
 
-  @$get = ['md5', (md5) ->
-    # Set default URL function if not already configured
-    self.urlFunc ?= (opts) ->
-      prefix = if opts.protocol then (opts.protocol + ':') else ''
-      urlBase = if opts.secure then 'https://secure' else (prefix + '//www')
-      # Don't do MD5 if the string is already MD5
-      src = if hashRegex.test(opts.src) then opts.src else md5(opts.src)
-      pieces = [urlBase, '.gravatar.com/avatar/', src]
+    params = serialize(opts.params)
+    pieces.push('?' + params) if params.length > 0
+    pieces.join('')
 
-      params = serialize(opts.params)
-      pieces.push('?' + params) if params.length > 0
-      pieces.join('')
-
+  @$get = [->
     # Generate URL from source (email or md5 hash)
     url: (src = '', params = {}) ->
       self.urlFunc(
@@ -72,6 +70,6 @@ angular.module('ui.gravatar', ['md5'])
       )
   ]
   @
-)
+])
 .directive('gravatarSrc', gravatarDirectiveFactory())
 .directive('gravatarSrcOnce', gravatarDirectiveFactory(true))

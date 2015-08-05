@@ -7,7 +7,7 @@
  * Distributed under the BSD License
  * See http://pajhome.org.uk/crypt/md5 for more info.
  */
-angular.module('md5', []).factory('md5', function() {
+angular.module('md5', []).constant('md5', (function() {
 
   /*
    * Configurable variables. You may need to tweak these to be compatible with
@@ -381,7 +381,7 @@ angular.module('md5', []).factory('md5', function() {
   }
 
   return hex_md5;
-});
+})());
 /* jshint ignore:end */
 (function() {
   var gravatarDirectiveFactory;
@@ -428,58 +428,57 @@ angular.module('md5', []).factory('md5', function() {
     ];
   };
 
-  angular.module('ui.gravatar', ['md5']).provider('gravatarService', function() {
-    var hashRegex, self, serialize;
-    self = this;
-    hashRegex = /^[0-9a-f]{32}$/i;
-    serialize = function(object) {
-      var k, params, v;
-      params = [];
-      for (k in object) {
-        v = object[k];
-        params.push("" + k + "=" + (encodeURIComponent(v)));
-      }
-      return params.join('&');
-    };
-    this.defaults = {};
-    this.secure = false;
-    this.protocol = null;
-    this.urlFunc = null;
-    this.$get = [
-      'md5', function(md5) {
-        if (self.urlFunc == null) {
-          self.urlFunc = function(opts) {
-            var params, pieces, prefix, src, urlBase;
-            prefix = opts.protocol ? opts.protocol + ':' : '';
-            urlBase = opts.secure ? 'https://secure' : prefix + '//www';
-            src = hashRegex.test(opts.src) ? opts.src : md5(opts.src);
-            pieces = [urlBase, '.gravatar.com/avatar/', src];
-            params = serialize(opts.params);
-            if (params.length > 0) {
-              pieces.push('?' + params);
+  angular.module('ui.gravatar', ['md5']).provider('gravatarService', [
+    'md5', function(md5) {
+      var hashRegex, self, serialize;
+      self = this;
+      hashRegex = /^[0-9a-f]{32}$/i;
+      serialize = function(object) {
+        var k, params, v;
+        params = [];
+        for (k in object) {
+          v = object[k];
+          params.push("" + k + "=" + (encodeURIComponent(v)));
+        }
+        return params.join('&');
+      };
+      this.defaults = {};
+      this.secure = false;
+      this.protocol = null;
+      this.urlFunc = function(opts) {
+        var params, pieces, prefix, src, urlBase;
+        prefix = opts.protocol ? opts.protocol + ':' : '';
+        urlBase = opts.secure ? 'https://secure' : prefix + '//www';
+        src = hashRegex.test(opts.src) ? opts.src : md5(opts.src);
+        pieces = [urlBase, '.gravatar.com/avatar/', src];
+        params = serialize(opts.params);
+        if (params.length > 0) {
+          pieces.push('?' + params);
+        }
+        return pieces.join('');
+      };
+      this.$get = [
+        function() {
+          return {
+            url: function(src, params) {
+              if (src == null) {
+                src = '';
+              }
+              if (params == null) {
+                params = {};
+              }
+              return self.urlFunc({
+                params: angular.extend(angular.copy(self.defaults), params),
+                protocol: self.protocol,
+                secure: self.secure,
+                src: src
+              });
             }
-            return pieces.join('');
           };
         }
-        return {
-          url: function(src, params) {
-            if (src == null) {
-              src = '';
-            }
-            if (params == null) {
-              params = {};
-            }
-            return self.urlFunc({
-              params: angular.extend(angular.copy(self.defaults), params),
-              protocol: self.protocol,
-              secure: self.secure,
-              src: src
-            });
-          }
-        };
-      }
-    ];
-    return this;
-  }).directive('gravatarSrc', gravatarDirectiveFactory()).directive('gravatarSrcOnce', gravatarDirectiveFactory(true));
+      ];
+      return this;
+    }
+  ]).directive('gravatarSrc', gravatarDirectiveFactory()).directive('gravatarSrcOnce', gravatarDirectiveFactory(true));
 
 }).call(this);
