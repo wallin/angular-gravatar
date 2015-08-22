@@ -1,8 +1,8 @@
-[![Bower version](https://badge.fury.io/bo/angular-gravatar.png)](http://badge.fury.io/bo/angular-gravatar)
-[![NPM version](https://badge.fury.io/js/angular-gravatar.png)](http://badge.fury.io/js/angular-gravatar)
+[![Bower version](https://badge.fury.io/bo/angular-gravatar.svg)](http://badge.fury.io/bo/angular-gravatar)
+[![NPM version](https://badge.fury.io/js/angular-gravatar.svg)](http://badge.fury.io/js/angular-gravatar)
 
-[![Build Status](https://travis-ci.org/wallin/angular-gravatar.png?branch=master)](https://travis-ci.org/wallin/angular-gravatar)
-[![Code Climate](https://codeclimate.com/github/wallin/angular-gravatar.png)](https://codeclimate.com/github/wallin/angular-gravatar)
+[![Build Status](https://travis-ci.org/wallin/angular-gravatar.svg?branch=master)](https://travis-ci.org/wallin/angular-gravatar)
+[![Code Climate](https://codeclimate.com/github/wallin/angular-gravatar.svg)](https://codeclimate.com/github/wallin/angular-gravatar)
 angular-gravatar
 ==============
 
