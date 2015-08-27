@@ -34,7 +34,7 @@ Usage
 Include angular-gravatar.js in your application.
 
 ```html
-<script src="./bower_components/angular-gravatar/build/angular-gravatar.js"></script>
+<script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
 ```
 
 Add the module `ui.gravatar` as a dependency to your app:
