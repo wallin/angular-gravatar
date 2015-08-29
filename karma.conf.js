@@ -9,8 +9,8 @@ module.exports = function (config) {
 		singleRun: true,
 		reporters: ['dots', 'coverage'],
 		files: [
-			'components/angular/angular.js',
-			'components/angular-mocks/angular-mocks.js',
+			'bower_components/angular/angular.js',
+			'bower_components/angular-mocks/angular-mocks.js',
 			'src/md5.js',
 			'build/angular-gravatar.js',
 			'build/spec/tests.js'
