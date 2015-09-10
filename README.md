@@ -106,8 +106,8 @@ MIT
 
 [Contributors](https://github.com/wallin/angular-gravatar/graphs/contributors)
 -----
-* Alexander Makarenko (https://github.com/estliberitas)
-* Eduardo Garcia (https://github.com/thewarpaint)
-* Thomas Vervest (https://github.com/tvervest)
-* Gonzalo Aguirre (https://github.com/gaguirre)
-* Gabe Hayes (https://github.com/gabehayes)
+* Alexander Makarenko, [@estliberitas](https://github.com/estliberitas)
+* Eduardo Garcia, [@thewarpaint](https://github.com/thewarpaint)
+* Thomas Vervest, [@tvervest](https://github.com/tvervest)
+* Gonzalo Aguirre, [@gaguirre](https://github.com/gaguirre)
+* Gabe Hayes, [@gabehayes](https://github.com/gabehayes)
