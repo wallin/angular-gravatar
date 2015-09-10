@@ -47,6 +47,9 @@ Then use the directive on an image tag and it will set the correct `src`
 attribute for you.
 
 ```html
+<!-- using a scope variable //-->
+<img gravatar-src="user.email" gravatar-size="100">
+<!-- or a string directly //-->
 <img gravatar-src="'sebastian.wallin@gmail.com'" gravatar-size="100">
 ```
 
