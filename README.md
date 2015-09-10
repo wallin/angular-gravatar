@@ -111,3 +111,5 @@ MIT
 * Thomas Vervest, [@tvervest](https://github.com/tvervest)
 * Gonzalo Aguirre, [@gaguirre](https://github.com/gaguirre)
 * Gabe Hayes, [@gabehayes](https://github.com/gabehayes)
+* Peter Dave Hello, [@PeterDaveHello](https://github.com/PeterDaveHello)
+* Kalisa Falzone, [@KalisaFalzone](https://github.com/KalisaFalzone)
