@@ -116,3 +116,4 @@ MIT
 * Gabe Hayes, [@gabehayes](https://github.com/gabehayes)
 * Peter Dave Hello, [@PeterDaveHello](https://github.com/PeterDaveHello)
 * Kalisa Falzone, [@KalisaFalzone](https://github.com/KalisaFalzone)
+* Victor Torres, [@victor-torres](https://github.com/victor-torres)

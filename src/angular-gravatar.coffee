@@ -19,11 +19,11 @@ gravatarDirectiveFactory = (bindOnce) ->
         # Look for gravatar options
         opts = filterKeys 'gravatar', attrs
         unbind = scope.$watch item, (newVal) ->
+          element.attr('src', gravatarService.url(newVal, opts))
           if bindOnce
             return unless newVal?
             unbind()
 
-          element.attr('src', gravatarService.url(newVal, opts))
           return
         return
   ]
