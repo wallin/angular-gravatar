@@ -414,13 +414,13 @@ angular.module('md5', []).constant('md5', (function() {
             delete attrs[directiveName];
             opts = filterKeys('gravatar', attrs);
             unbind = scope.$watch(item, function(newVal) {
+              element.attr('src', gravatarService.url(newVal, opts));
               if (bindOnce) {
                 if (newVal == null) {
                   return;
                 }
                 unbind();
               }
-              element.attr('src', gravatarService.url(newVal, opts));
             });
           }
         };

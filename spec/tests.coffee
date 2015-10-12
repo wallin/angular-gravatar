@@ -51,7 +51,7 @@ describe 'Directive: gravatarSrc', ->
     it 'does not lock on null', inject ($rootScope) ->
       element = createElement('<img gravatar-src-once="email">', $rootScope)
 
-      expect(element.attr('src')).toBeUndefined();
+      expect(element.attr('src')).toBe('//www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e');
 
       $rootScope.email = email
       $rootScope.$apply()
@@ -123,4 +123,3 @@ describe 'Service: gravatarService', ->
 
       it 'uses specified URL function', ->
         expect(gravatarService.url()).toBe 'custom url'
-
