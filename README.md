@@ -59,7 +59,7 @@ If the source is already an MD5 hash, it will be left untouched (thanks @thewarp
 
 If you know that the source is not going to change, you can use the `gravatar-src-once` instead:
 
-```js
+```html
 <img gravatar-src-once="user.email">
 ```
 
