@@ -53,13 +53,15 @@ angular.module('ui.gravatar', ['md5'])
     urlBase = if opts.secure then 'https://secure' else (prefix + '//www')
     # Don't do MD5 if the string is already MD5
     src = if hashRegex.test(opts.src) then opts.src else md5(opts.src)
-    pieces = [urlBase, '.gravatar.com/avatar/', src]
+    path = if opts.profile then '' else 'avatar/'
+    format = if opts.profile then '.json' else ''
+    pieces = [urlBase, '.gravatar.com/', path, src, format]
 
     params = serialize(opts.params)
     pieces.push('?' + params) if params.length > 0
     pieces.join('')
 
-  @$get = [->
+  @$get = ['$http', ($http) ->
     # Generate URL from source (email or md5 hash)
     url: (src = '', params = {}) ->
       self.urlFunc(
@@ -68,8 +70,31 @@ angular.module('ui.gravatar', ['md5'])
         secure: self.secure,
         src: src
       )
+    profile: (src = '', params = {}) ->
+      params.callback = 'JSON_CALLBACK'
+      url = self.urlFunc(
+        params: angular.extend(angular.copy(self.defaults), params)
+        protocol: self.protocol,
+        secure: self.secure,
+        src: src,
+        profile: true
+      )
+      $http.jsonp(url)
   ]
   @
 ])
 .directive('gravatarSrc', gravatarDirectiveFactory())
 .directive('gravatarSrcOnce', gravatarDirectiveFactory(true))
+.directive('gravatarProfile', [
+  'gravatarService',
+  (gravatarService) ->
+    restrict: 'A'
+    scope: true
+    link: (scope, element, attrs) ->
+      scope.$watch attrs.gravatarProfile, (newVal) ->
+        return unless newVal
+        gravatarService.profile(newVal).then (success) ->
+          if angular.isArray(success.data.entry) and
+             success.data.entry.length > 0
+            angular.extend(scope, success.data.entry[0])
+])

@@ -1,0 +1,1 @@
+../build/angular-gravatar.js

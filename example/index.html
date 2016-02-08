@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js'></script>
+    <script type='text/javascript' src='angular-gravatar.js'></script>
+    <script type='text/javascript' src='app.js'></script>
+  </head>
+  <body ng-app='app'>
+    <h3>Example usage of <code>gravatar-profile</code> directive</h3>
+    <ul gravatar-profile="'sebastian.wallin@gmail.com'">
+      <li>
+        <img ng-src="{{photos[0].value}}" gravatar-size="100">
+      </li>
+      <li ng-bind="name.formatted"></li>
+    </ul>
+  </body>
+
+</html>

@@ -446,11 +446,13 @@ angular.module('md5', []).constant('md5', (function() {
       this.secure = false;
       this.protocol = null;
       this.urlFunc = function(opts) {
-        var params, pieces, prefix, src, urlBase;
+        var format, params, path, pieces, prefix, src, urlBase;
         prefix = opts.protocol ? opts.protocol + ':' : '';
         urlBase = opts.secure ? 'https://secure' : prefix + '//www';
         src = hashRegex.test(opts.src) ? opts.src : md5(opts.src);
-        pieces = [urlBase, '.gravatar.com/avatar/', src];
+        path = opts.profile ? '' : 'avatar/';
+        format = opts.profile ? '.json' : '';
+        pieces = [urlBase, '.gravatar.com/', path, src, format];
         params = serialize(opts.params);
         if (params.length > 0) {
           pieces.push('?' + params);
@@ -458,7 +460,7 @@ angular.module('md5', []).constant('md5', (function() {
         return pieces.join('');
       };
       this.$get = [
-        function() {
+        '$http', function($http) {
           return {
             url: function(src, params) {
               if (src == null) {
@@ -473,12 +475,49 @@ angular.module('md5', []).constant('md5', (function() {
                 secure: self.secure,
                 src: src
               });
+            },
+            profile: function(src, params) {
+              var url;
+              if (src == null) {
+                src = '';
+              }
+              if (params == null) {
+                params = {};
+              }
+              params.callback = 'JSON_CALLBACK';
+              url = self.urlFunc({
+                params: angular.extend(angular.copy(self.defaults), params),
+                protocol: self.protocol,
+                secure: self.secure,
+                src: src,
+                profile: true
+              });
+              return $http.jsonp(url);
             }
           };
         }
       ];
       return this;
     }
-  ]).directive('gravatarSrc', gravatarDirectiveFactory()).directive('gravatarSrcOnce', gravatarDirectiveFactory(true));
+  ]).directive('gravatarSrc', gravatarDirectiveFactory()).directive('gravatarSrcOnce', gravatarDirectiveFactory(true)).directive('gravatarProfile', [
+    'gravatarService', function(gravatarService) {
+      return {
+        restrict: 'A',
+        scope: true,
+        link: function(scope, element, attrs) {
+          return scope.$watch(attrs.gravatarProfile, function(newVal) {
+            if (!newVal) {
+              return;
+            }
+            return gravatarService.profile(newVal).then(function(success) {
+              if (angular.isArray(success.data.entry) && success.data.entry.length > 0) {
+                return angular.extend(scope, success.data.entry[0]);
+              }
+            });
+          });
+        }
+      };
+    }
+  ]);
 
 }).call(this);
