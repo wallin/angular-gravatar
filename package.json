@@ -28,7 +28,7 @@
     "karma": "0.12.16",
     "karma-coverage": "0.2.4",
     "karma-jasmine": "0.1.5",
-    "karma-phantomjs-launcher": "0.1.4",
+    "karma-phantomjs2-launcher": "0.5.0",
     "matchdep": "0.3.0"
   },
   "engines": {
