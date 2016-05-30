@@ -5,6 +5,7 @@
     "name": "Sebastian Wallin"
   },
   "description": "Angular.JS directive for gravatar images",
+  "files": ["build/angular-gravatar*", "src/*"],
   "keywords": [
     "angular",
     "angularjs",
